@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
+import './styles.css'
 
 
-const index = ({onSubmit}) => {
-
+const Index = ({onSubmit}) => {
 
     const [name, setName] = useState<string | null>(null)
     const [block, setBlock] = useState<number | null>(null)
@@ -17,23 +17,18 @@ const index = ({onSubmit}) => {
     };
 
     const submitVariables = () => {
-        onSubmit(name, block, apartment)
+        onSubmit(name, block, apartment, selectedFile)
     }
 
     return (
-        <div>
+        <div className='containerForm'>
             <input type="text" placeholder='Nome...' onChange={(e) => setName(e.target.value)}/>
             <input type="number" placeholder='Bloco...' onChange={(e) => setBlock(Number(e.target.value))}/>
             <input type="text" placeholder='Apartamento...' onChange={(e) => setApartment(Number(e.target.value))}/>
             <input type="file" accept="image/*" onChange={handleFileChange} />
-            {selectedFile && (
-                <div>
-                    <img src={URL.createObjectURL(selectedFile)} alt="Imagem carregada" style={{ maxWidth: '100%' }} />
-                </div>
-            )}
-            <button onClick={submitVariables}>Exec</button>
+            <button onClick={submitVariables}>Criar</button>
         </div>
     )
 }
 
-export default index
+export default Index

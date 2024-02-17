@@ -1,0 +1,15 @@
+.containerForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.containerForm input {
+    padding: 8px;
+    margin: 10px;
+}
+
+.containerForm button {
+    cursor: pointer;
+    padding: 8px;
+}

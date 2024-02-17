@@ -6,10 +6,11 @@ import Card from './components/Card'
 
 function App() {
 
-  const [variables, setVariables] = useState<[string, number, number] | null>(null)
+  const [variables, setVariables] = useState<[string, number, number, string] | null>(null)
 
-  function getVariables(name: string, block: number, apartment: number) {
-    setVariables([name, block, apartment])
+  function getVariables(name: string, block: number, apartment: number, urlImg: string) {
+    setVariables([name, block, apartment, urlImg])
+    console.log(urlImg)
   }
 
   return (
