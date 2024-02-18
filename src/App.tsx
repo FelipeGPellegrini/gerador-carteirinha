@@ -17,7 +17,7 @@ function App() {
     <>
       <Header/>
       <Form onSubmit={getVariables}/>
-      <Card variables={variables}/>
+      {variables && <Card variables={variables}/>}
     </>
   )
 }
