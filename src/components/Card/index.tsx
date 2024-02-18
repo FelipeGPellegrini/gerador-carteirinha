@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
+import './styles.css'
 
 const Index = ({ variables }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -7,6 +8,8 @@ const Index = ({ variables }) => {
   const [block, setBlock] = useState(0);
   const [apartment, setApartment] = useState(0);
   const [urlImg, setUrlImg] = useState<string | null>(null);
+  const [expirationDate, setExpirationDate] = useState<string>('');
+
 
   useEffect(() => {
     const setVariable = () => {
@@ -17,6 +20,14 @@ const Index = ({ variables }) => {
         setUrlImg(prevUrlImg => variables[3] instanceof File ? URL.createObjectURL(variables[3]) : prevUrlImg);
       }
     };
+
+    const currentDate = new Date();
+    const futureYear = currentDate.getFullYear() + 1;
+    const futureDate = new Date(futureYear, currentDate.getMonth(), currentDate.getDate());
+
+    const formattedFutureDate = futureDate.toLocaleDateString('pt-BR');
+
+    setExpirationDate(formattedFutureDate)
 
     setVariable();
   }, [variables]);
@@ -34,10 +45,10 @@ const Index = ({ variables }) => {
     ctx.fillRect(0, 0, 800, 500);
 
 
-    const logoX = (canvas.width - 200) / 2;
-    const logoY = 50;
+    const logoX = 0;
+    const logoY = 5;
     const logo = new Image();
-    logo.src = './vvn.png';
+    logo.src = './LOGO.png';
     logo.onload = () => {
       ctx.fillStyle = '#fff';
       ctx.drawImage(logo, logoX, logoY);
@@ -56,9 +67,11 @@ const Index = ({ variables }) => {
     ctx.fillStyle = 'black';
 
     ctx.textAlign = 'left';
-    ctx.fillText(`Nome: ${name}`, 300, 300);
-    ctx.fillText(`Bloco: ${block}`, 300, 330);
-    ctx.fillText(`Apartamento: ${apartment}`, 300, 360);
+    ctx.fillText(`Nome: ${name}`, 300, 230);
+    ctx.fillText(`Bloco: ${block}`, 300, 270);
+    ctx.fillText(`Apartamento: ${apartment}`, 300, 310);
+    ctx.fillText(`Valido até: ${expirationDate}`, 300, 350);
+
 
     ctx.beginPath();
     ctx.moveTo(50, 450);
@@ -70,7 +83,9 @@ const Index = ({ variables }) => {
 
   }, [name, block, apartment, urlImg]);
 
-  return <canvas ref={canvasRef} width={800} height={500} />;
+  return <div className='carteirinha'>
+    <canvas ref={canvasRef} width={800} height={500} />
+  </div>;
 };
 
 export default Index;
